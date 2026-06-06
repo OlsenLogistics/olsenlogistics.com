@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Olsen Logistics LLC hauls produce, meat, dairy, frozen, and ambient refrigerated freight across the Lower 48.">
+  <meta property="og:title" content="Services — Olsen Logistics LLC">
+  <meta property="og:url" content="https://www.olsenlogistics.com/services">
+  <title>Services — Olsen Logistics LLC</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Olsen <span>Logistics</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="quote.html">Request a quote</a></li>
+    <li><a href="drive.html">Drive with us</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow">What we haul</div>
+    <h1>Refrigerated freight,<br><span>every commodity.</span></h1>
+    <p>We have extensive experience hauling all kinds of freight. With well maintained late model reefers, no matter what you need moved, we can get it done.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header"><h2>Our commodities</h2></div>
+
+    <div class="commodity-card">
+      <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&q=80" alt="Fresh produce">
+      <div class="content">
+        <h3><i class="ti ti-apple" aria-hidden="true"></i>Produce</h3>
+        <p>We move produce out of all major growing regions. We are also CARB certified, so we can legally operate in California. Proper load securement and precise temperature management are critical with produce, and we always ensure this is done the right way.</p>
+        <span class="badge">CARB certified</span>
+      </div>
+    </div>
+
+    <div class="commodity-card">
+      <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&q=80" alt="Meat">
+      <div class="content">
+        <h3><i class="ti ti-meat" aria-hidden="true"></i>Meat</h3>
+        <p>Our trailers are kept properly sanitized and maintained in food grade condition at all times. Cross contamination is not an option — every load of meat gets a clean, inspection-ready trailer.</p>
+      </div>
+    </div>
+
+    <div class="commodity-card">
+      <img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&q=80" alt="Dairy products">
+      <div class="content">
+        <h3><i class="ti ti-droplet" aria-hidden="true"></i>Dairy</h3>
+        <p>We haul a full range of dairy products kept at the temperatures your load requires. For milk loads that require a tanker endorsement, we have drivers qualified to handle them.</p>
+      </div>
+    </div>
+
+    <div class="commodity-card">
+      <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=400&q=80" alt="Frozen food">
+      <div class="content">
+        <h3><i class="ti ti-snowflake" aria-hidden="true"></i>Frozen</h3>
+        <p>Our late model reefer trailers are equipped to meet the intense demands of frozen freight, including ice cream. They are able to effortlessly maintain temperatures as low as -20&deg;F.</p>
+      </div>
+    </div>
+
+    <div class="commodity-card">
+      <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=400&q=80" alt="Other commodities">
+      <div class="content">
+        <h3><i class="ti ti-package" aria-hidden="true"></i>Other commodities</h3>
+        <p>We also haul a variety of other temperature-sensitive and ambient freight, including:</p>
+        <ul class="bullet-list">
+          <li><i class="ti ti-circle-check" aria-hidden="true"></i>Candy</li>
+          <li><i class="ti ti-circle-check" aria-hidden="true"></i>Non-hazmat chemicals</li>
+          <li><i class="ti ti-circle-check" aria-hidden="true"></i>Protect from freeze</li>
+          <li><i class="ti ti-circle-check" aria-hidden="true"></i>Eggs</li>
+          <li><i class="ti ti-circle-check" aria-hidden="true"></i>Beer</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cta-box">
+    <h2>Ready to move your freight?</h2>
+    <p>Get in touch today for a quote. We'll respond quickly and get your load moving.</p>
+    <div class="cta-row">
+      <a href="quote.html" class="btn-primary">Request a quote</a>
+      <a href="drive.html" class="btn-secondary">Drive with us</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Olsen <span>Logistics</span> LLC</div>
+  <div>MC #1721316 &nbsp;·&nbsp; DOT #4388525</div>
+  <div style="margin-top:6px;"><a href="tel:7203471042">(720) 347-1042</a> &nbsp;·&nbsp; <a href="mailto:eric@olsenlogistics.com">eric@olsenlogistics.com</a></div>
+  <div style="margin-top:10px; color:#5F7A99; font-size:12px;">&copy; 2025 Olsen Logistics LLC. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleNav() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

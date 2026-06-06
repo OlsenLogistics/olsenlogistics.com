@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Request a refrigerated freight quote from Olsen Logistics LLC. Fast, reliable reefer service across the Lower 48.">
+  <meta property="og:title" content="Request a Quote — Olsen Logistics LLC">
+  <meta property="og:url" content="https://www.olsenlogistics.com/quote">
+  <title>Request a Quote — Olsen Logistics LLC</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Olsen <span>Logistics</span></a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="quote.html" class="active">Request a quote</a></li>
+    <li><a href="drive.html">Drive with us</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleNav()" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-eyebrow">Get in touch</div>
+    <h1>Request a<br><span>quote.</span></h1>
+    <p>Fill out the form below and we'll get back to you as quickly as possible.</p>
+  </div>
+
+  <form id="quote-form" onsubmit="submitQuote(event)">
+
+    <div class="form-section">
+      <h3>Your information</h3>
+      <div class="field-row">
+        <div class="field"><label for="company">Company name</label><input type="text" id="company" name="company" placeholder="ABC Shipping Co." required></div>
+        <div class="field"><label for="contact">Contact name</label><input type="text" id="contact" name="contact" placeholder="Jane Smith" required></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="phone">Phone number</label><input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required></div>
+        <div class="field"><label for="email">Email address</label><input type="email" id="email" name="email" placeholder="you@company.com" required></div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Load details</h3>
+      <div class="field-row">
+        <div class="field"><label for="commodity">Commodity</label><input type="text" id="commodity" name="commodity" placeholder="e.g. Produce, frozen chicken, ice cream" required></div>
+        <div class="field"><label for="weight">Weight (lbs)</label><input type="text" id="weight" name="weight" placeholder="e.g. 42,000"></div>
+      </div>
+      <div class="field">
+        <label for="temp">Temperature requirement</label>
+        <input type="text" id="temp" name="temp" placeholder="e.g. 34°F, or -10°F for frozen">
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="form-section">
+      <h3>Pickup</h3>
+      <div class="appt-block">
+        <h4><i class="ti ti-map-pin" aria-hidden="true"></i>Pickup location</h4>
+        <div class="field"><label for="pickup-city">City &amp; state</label><input type="text" id="pickup-city" name="pickup_city" placeholder="Fresno, CA" required></div>
+        <div class="field"><label for="pickup-date">Pickup date</label><input type="date" id="pickup-date" name="pickup_date"></div>
+        <div class="field">
+          <label>Appointment type</label>
+          <div class="radio-group">
+            <label><input type="radio" name="pickup_appt" value="Strict appointment" onchange="updateLabel('pickup')"> Strict appointment</label>
+            <label><input type="radio" name="pickup_appt" value="Window" onchange="updateLabel('pickup')"> Window</label>
+          </div>
+        </div>
+        <div class="field hidden" id="pickup-detail-field">
+          <label id="pickup-detail-label">Details</label>
+          <input type="text" id="pickup-detail-input" name="pickup_detail" placeholder="">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Delivery</h3>
+      <div class="appt-block">
+        <h4><i class="ti ti-map-pin" aria-hidden="true"></i>Delivery location</h4>
+        <div class="field"><label for="delivery-city">City &amp; state</label><input type="text" id="delivery-city" name="delivery_city" placeholder="Chicago, IL" required></div>
+        <div class="field"><label for="delivery-date">Delivery date</label><input type="date" id="delivery-date" name="delivery_date"></div>
+        <div class="field">
+          <label>Appointment type</label>
+          <div class="radio-group">
+            <label><input type="radio" name="delivery_appt" value="Strict appointment" onchange="updateLabel('delivery')"> Strict appointment</label>
+            <label><input type="radio" name="delivery_appt" value="Window" onchange="updateLabel('delivery')"> Window</label>
+          </div>
+        </div>
+        <div class="field hidden" id="delivery-detail-field">
+          <label id="delivery-detail-label">Details</label>
+          <input type="text" id="delivery-detail-input" name="delivery_detail" placeholder="">
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <div class="form-section">
+      <h3>Anything else?</h3>
+      <div class="field">
+        <label for="notes">Special instructions or additional information (optional)</label>
+        <textarea id="notes" name="notes" placeholder="Lumper service required, team driver needed, driver unload, etc."></textarea>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit quote request</button>
+  </form>
+
+</div>
+
+<footer>
+  <div class="footer-logo">Olsen <span>Logistics</span> LLC</div>
+  <div>MC #1721316 &nbsp;·&nbsp; DOT #4388525</div>
+  <div style="margin-top:6px;"><a href="tel:7203471042">(720) 347-1042</a> &nbsp;·&nbsp; <a href="mailto:eric@olsenlogistics.com">eric@olsenlogistics.com</a></div>
+  <div style="margin-top:10px; color:#5F7A99; font-size:12px;">&copy; 2025 Olsen Logistics LLC. All rights reserved.</div>
+</footer>
+
+<script>
+function toggleNav() {
+  document.getElementById('nav-links').classList.toggle('open');
+}
+
+const labels = {
+  pickup: { 'Strict appointment': 'Appointment time (e.g. 08:00 AM)', 'Window': 'Pickup window (e.g. 8:00 AM – 12:00 PM)' },
+  delivery: { 'Strict appointment': 'Appointment time (e.g. 14:00 PM)', 'Window': 'Delivery window (e.g. 10:00 AM – 2:00 PM)' }
+};
+const placeholders = {
+  'Strict appointment': 'e.g. 08:00 AM',
+  'Window': 'e.g. 8:00 AM – 12:00 PM'
+};
+
+function updateLabel(type) {
+  const selected = document.querySelector(`input[name="${type}_appt"]:checked`);
+  if (!selected) return;
+  const field = document.getElementById(`${type}-detail-field`);
+  const label = document.getElementById(`${type}-detail-label`);
+  const input = document.getElementById(`${type}-detail-input`);
+  field.classList.remove('hidden');
+  label.textContent = labels[type][selected.value];
+  input.placeholder = placeholders[selected.value];
+}
+
+function submitQuote(e) {
+  e.preventDefault();
+  const f = e.target;
+  const get = id => (f.querySelector(`[name="${id}"]`) || {}).value || '';
+  const pickupAppt = f.querySelector('input[name="pickup_appt"]:checked');
+  const deliveryAppt = f.querySelector('input[name="delivery_appt"]:checked');
+
+  const body = `QUOTE REQUEST — OLSEN LOGISTICS
+
+CONTACT
+Company: ${get('company')}
+Name: ${get('contact')}
+Phone: ${get('phone')}
+Email: ${get('email')}
+
+LOAD
+Commodity: ${get('commodity')}
+Weight: ${get('weight')} lbs
+Temperature: ${get('temp')}
+
+PICKUP
+Location: ${get('pickup_city')}
+Date: ${get('pickup_date')}
+Appointment type: ${pickupAppt ? pickupAppt.value : 'Not specified'}
+Details: ${get('pickup_detail')}
+
+DELIVERY
+Location: ${get('delivery_city')}
+Date: ${get('delivery_date')}
+Appointment type: ${deliveryAppt ? deliveryAppt.value : 'Not specified'}
+Details: ${get('delivery_detail')}
+
+NOTES
+${get('notes')}`;
+
+  window.location.href = `mailto:eric@olsenlogistics.com?subject=Quote Request — ${get('commodity')} | ${get('pickup_city')} to ${get('delivery_city')}&body=${encodeURIComponent(body)}`;
+}
+</script>
+
+</body>
+</html>
