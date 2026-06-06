@@ -300,6 +300,19 @@ nav {
   appearance: none;
 }
 
+.field input[type="radio"],
+.field input[type="checkbox"] {
+  appearance: auto;
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  width: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 0;
+  accent-color: #185FA5;
+}
+
 .field input:focus,
 .field select:focus,
 .field textarea:focus {
