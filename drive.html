@@ -28,13 +28,6 @@
   </button>
 </nav>
 
-<script>
-  // -------------------------------------------------------
-  // HIRING TOGGLE — change to false when not hiring
-  const HIRING = true;
-  // -------------------------------------------------------
-</script>
-
 <div class="page">
 
   <div class="hero">
@@ -43,7 +36,14 @@
     <p>Start your future today. As a small company, we guarantee that every driver will be treated with the respect they deserve.</p>
   </div>
 
-  <div id="hiring-banner"></div>
+  <div class="hiring-banner" id="banner-hiring">
+    <i class="ti ti-circle-check" aria-hidden="true"></i>
+    We're currently accepting applications &mdash; review the details below and apply at the bottom of this page.
+  </div>
+  <div class="not-hiring-banner hidden" id="banner-not-hiring">
+    <i class="ti ti-clock" aria-hidden="true"></i>
+    We're not actively hiring right now &mdash; check back soon or reach out directly at <a href="mailto:eric@olsenlogistics.com" style="color:#185FA5;">eric@olsenlogistics.com</a>.
+  </div>
 
   <div class="section">
     <div class="section-header"><h2>The pay</h2></div>
@@ -121,7 +121,130 @@
 
   <hr class="section-divider">
 
-  <div id="apply-section"></div>
+  <!-- APPLICATION FORM — static HTML, shown/hidden by JS -->
+  <div id="apply-section" class="section">
+    <div class="section-header"><h2>Apply now</h2></div>
+    <p style="font-size:14px;color:#555;margin-bottom:1.5rem;line-height:1.7;">Fill out the form below. We review every application personally and will follow up by phone or email within a few business days.</p>
+
+    <div class="form-section">
+      <h3>Personal information</h3>
+      <div class="field-row">
+        <div class="field"><label for="a-fname">First name</label><input type="text" id="a-fname" placeholder="Jane"></div>
+        <div class="field"><label for="a-lname">Last name</label><input type="text" id="a-lname" placeholder="Smith"></div>
+      </div>
+      <div class="field"><label for="a-address">Home address</label><input type="text" id="a-address" placeholder="Street address"></div>
+      <div class="field-row-3">
+        <div class="field"><label for="a-city">City</label><input type="text" id="a-city"></div>
+        <div class="field"><label for="a-state">State</label><input type="text" id="a-state" placeholder="CO"></div>
+        <div class="field"><label for="a-zip">ZIP code</label><input type="text" id="a-zip" placeholder="80201"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="a-email">Email address</label><input type="email" id="a-email" placeholder="you@email.com"></div>
+        <div class="field"><label for="a-phone">Phone number</label><input type="tel" id="a-phone" placeholder="(555) 000-0000"></div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Eligibility</h3>
+      <div class="field">
+        <label>Are you legally authorized to work in the United States?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="work_auth" value="Yes"> Yes</label>
+          <label><input type="radio" name="work_auth" value="No"> No</label>
+        </div>
+        <div class="disqualify-note"><i class="ti ti-info-circle" style="font-size:13px"></i>Applicants must be legally authorized to work in the US.</div>
+      </div>
+      <div class="field">
+        <label>Do you hold a valid Class A CDL?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="cdl" value="Yes"> Yes</label>
+          <label><input type="radio" name="cdl" value="No"> No</label>
+        </div>
+        <div class="disqualify-note"><i class="ti ti-info-circle" style="font-size:13px"></i>A Class A CDL is required for this position.</div>
+      </div>
+      <div class="field">
+        <label>Have you ever been convicted of a felony?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="felony" value="No"> No</label>
+          <label><input type="radio" name="felony" value="Yes"> Yes</label>
+        </div>
+      </div>
+      <div class="field hidden" id="felony-explain">
+        <label for="a-felony">Please describe the nature of the conviction(s)</label>
+        <textarea id="a-felony" placeholder="Include offense, approximate date, and any relevant context..."></textarea>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Driving history</h3>
+      <div class="field">
+        <label for="a-exp">How many years of commercial driving experience do you have?</label>
+        <input type="number" id="a-exp" min="0" max="50" placeholder="0" style="width:100px;">
+        <div class="disqualify-note"><i class="ti ti-info-circle" style="font-size:13px"></i>We require a minimum of 2 years of experience.</div>
+      </div>
+      <div class="field">
+        <label>Have you been involved in any accidents in the past 3 years?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="accidents" value="No"> No</label>
+          <label><input type="radio" name="accidents" value="Yes"> Yes</label>
+        </div>
+      </div>
+      <div class="field hidden" id="accidents-explain">
+        <label for="a-accidents">Please describe each incident (date, circumstances, fault determination)</label>
+        <textarea id="a-accidents" placeholder="Provide as much detail as you're able..."></textarea>
+      </div>
+      <div class="field">
+        <label>Have you received any moving violations in the past 3 years?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="violations" value="No"> No</label>
+          <label><input type="radio" name="violations" value="Yes"> Yes</label>
+        </div>
+      </div>
+      <div class="field hidden" id="violations-explain">
+        <label for="a-violations">Please list each violation (date, offense, state)</label>
+        <textarea id="a-violations" placeholder="List all violations..."></textarea>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Qualifications</h3>
+      <div class="field">
+        <label>Do you have a TWIC card?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="twic" value="Yes"> Yes</label>
+          <label><input type="radio" name="twic" value="No"> No</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Do you have a tanker endorsement?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="tanker" value="Yes"> Yes</label>
+          <label><input type="radio" name="tanker" value="No"> No</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Do you have reefer experience?</label>
+        <div class="radio-group">
+          <label><input type="radio" name="reefer" value="Yes"> Yes</label>
+          <label><input type="radio" name="reefer" value="No"> No</label>
+        </div>
+      </div>
+      <div class="field hidden" id="reefer-years">
+        <label for="a-reefer-yrs">How many years of reefer experience do you have?</label>
+        <input type="number" id="a-reefer-yrs" min="0" max="50" placeholder="0" style="width:100px;">
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Anything else?</h3>
+      <div class="field">
+        <label for="a-notes">Is there anything else you'd like us to know? (optional)</label>
+        <textarea id="a-notes" placeholder="Tell us anything relevant that didn't fit the questions above..."></textarea>
+      </div>
+    </div>
+
+    <button class="submit-btn" id="apply-btn">Submit application</button>
+  </div>
 
 </div>
 
@@ -133,206 +256,88 @@
 </footer>
 
 <script>
+// -------------------------------------------------------
+// HIRING TOGGLE — change to false when not hiring
+var HIRING = true;
+// -------------------------------------------------------
+
 function toggleNav() {
   document.getElementById('nav-links').classList.toggle('open');
 }
 
-if (HIRING) {
-  document.getElementById('hiring-banner').innerHTML = `
-    <div class="hiring-banner">
-      <i class="ti ti-circle-check" aria-hidden="true"></i>
-      We're currently accepting applications &mdash; review the details below and apply at the bottom of this page.
-    </div>`;
-  document.getElementById('apply-section').innerHTML = `
-    <div class="section">
-      <div class="section-header"><h2>Apply now</h2></div>
-      <p style="font-size:14px;color:#555;margin-bottom:1.5rem;line-height:1.7;">Fill out the form below. We review every application personally and will follow up by phone or email within a few business days.</p>
-
-      <div class="form-section">
-        <h3>Personal information</h3>
-        <div class="field-row">
-          <div class="field"><label>First name</label><input type="text" id="a-fname" placeholder="Jane"></div>
-          <div class="field"><label>Last name</label><input type="text" id="a-lname" placeholder="Smith"></div>
-        </div>
-        <div class="field"><label>Home address</label><input type="text" id="a-address" placeholder="Street address"></div>
-        <div class="field-row-3">
-          <div class="field"><label>City</label><input type="text" id="a-city"></div>
-          <div class="field"><label>State</label><input type="text" id="a-state" placeholder="CO"></div>
-          <div class="field"><label>ZIP code</label><input type="text" id="a-zip" placeholder="80201"></div>
-        </div>
-        <div class="field-row">
-          <div class="field"><label>Email address</label><input type="email" id="a-email" placeholder="you@email.com"></div>
-          <div class="field"><label>Phone number</label><input type="tel" id="a-phone" placeholder="(555) 000-0000"></div>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3>Eligibility</h3>
-        <div class="field">
-          <label>Are you legally authorized to work in the United States?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="work_auth" value="Yes"> Yes</label>
-            <label><input type="radio" name="work_auth" value="No"> No</label>
-          </div>
-          <div class="disqualify-note"><i class="ti ti-info-circle" style="font-size:13px"></i>Applicants must be legally authorized to work in the US.</div>
-        </div>
-        <div class="field">
-          <label>Do you hold a valid Class A CDL?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="cdl" value="Yes"> Yes</label>
-            <label><input type="radio" name="cdl" value="No"> No</label>
-          </div>
-          <div class="disqualify-note"><i class="ti ti-info-circle" style="font-size:13px"></i>A Class A CDL is required for this position.</div>
-        </div>
-        <div class="field">
-          <label>Have you ever been convicted of a felony?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="felony" value="No" onchange="toggle('felony-explain', false)"> No</label>
-            <label><input type="radio" name="felony" value="Yes" onchange="toggle('felony-explain', true)"> Yes</label>
-          </div>
-        </div>
-        <div class="field hidden" id="felony-explain">
-          <label>Please describe the nature of the conviction(s)</label>
-          <textarea id="a-felony" placeholder="Include offense, approximate date, and any relevant context..."></textarea>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3>Driving history</h3>
-        <div class="field">
-          <label>How many years of commercial driving experience do you have?</label>
-          <input type="number" id="a-exp" min="0" max="50" placeholder="0" style="width:100px;">
-          <div class="disqualify-note"><i class="ti ti-info-circle" style="font-size:13px"></i>We require a minimum of 2 years of experience.</div>
-        </div>
-        <div class="field">
-          <label>Have you been involved in any accidents in the past 3 years?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="accidents" value="No" onchange="toggle('accidents-explain', false)"> No</label>
-            <label><input type="radio" name="accidents" value="Yes" onchange="toggle('accidents-explain', true)"> Yes</label>
-          </div>
-        </div>
-        <div class="field hidden" id="accidents-explain">
-          <label>Please describe each incident (date, circumstances, fault determination)</label>
-          <textarea id="a-accidents" placeholder="Provide as much detail as you're able..."></textarea>
-        </div>
-        <div class="field">
-          <label>Have you received any moving violations in the past 3 years?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="violations" value="No" onchange="toggle('violations-explain', false)"> No</label>
-            <label><input type="radio" name="violations" value="Yes" onchange="toggle('violations-explain', true)"> Yes</label>
-          </div>
-        </div>
-        <div class="field hidden" id="violations-explain">
-          <label>Please list each violation (date, offense, state)</label>
-          <textarea id="a-violations" placeholder="List all violations..."></textarea>
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3>Qualifications</h3>
-        <div class="field">
-          <label>Do you have a TWIC card?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="twic" value="Yes"> Yes</label>
-            <label><input type="radio" name="twic" value="No"> No</label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Do you have a tanker endorsement?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="tanker" value="Yes"> Yes</label>
-            <label><input type="radio" name="tanker" value="No"> No</label>
-          </div>
-        </div>
-        <div class="field">
-          <label>Do you have reefer experience?</label>
-          <div class="radio-group">
-            <label><input type="radio" name="reefer" value="Yes" onchange="toggle('reefer-years', true)"> Yes</label>
-            <label><input type="radio" name="reefer" value="No" onchange="toggle('reefer-years', false)"> No</label>
-          </div>
-        </div>
-        <div class="field hidden" id="reefer-years">
-          <label>How many years of reefer experience do you have?</label>
-          <input type="number" id="a-reefer-yrs" min="0" max="50" placeholder="0" style="width:100px;">
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3>Anything else?</h3>
-        <div class="field">
-          <label>Is there anything else you'd like us to know? (optional)</label>
-          <textarea id="a-notes" placeholder="Tell us anything relevant that didn't fit the questions above..."></textarea>
-        </div>
-      </div>
-
-      <button class="submit-btn" onclick="submitApplication()">Submit application</button>
-    </div>`;
-} else {
-  document.getElementById('hiring-banner').innerHTML = `
-    <div class="not-hiring-banner">
-      <i class="ti ti-clock" aria-hidden="true"></i>
-      We're not actively hiring right now — check back soon or reach out directly at <a href="mailto:eric@olsenlogistics.com" style="color:#185FA5;">eric@olsenlogistics.com</a>.
-    </div>`;
+// Apply hiring toggle
+if (!HIRING) {
+  document.getElementById('banner-hiring').classList.add('hidden');
+  document.getElementById('banner-not-hiring').classList.remove('hidden');
+  document.getElementById('apply-section').classList.add('hidden');
 }
 
-function toggle(id, show) {
-  document.getElementById(id).classList.toggle('hidden', !show);
+// Conditional field visibility
+function watchRadio(name, showId) {
+  document.querySelectorAll('input[name="' + name + '"]').forEach(function(r) {
+    r.addEventListener('change', function() {
+      document.getElementById(showId).classList.toggle('hidden', r.value !== 'Yes');
+    });
+  });
 }
+watchRadio('felony', 'felony-explain');
+watchRadio('accidents', 'accidents-explain');
+watchRadio('violations', 'violations-explain');
+watchRadio('reefer', 'reefer-years');
 
+// Helpers
 function getRadio(name) {
-  const el = document.querySelector(`input[name="${name}"]:checked`);
+  var el = document.querySelector('input[name="' + name + '"]:checked');
   return el ? el.value : 'Not answered';
 }
-
 function getVal(id) {
-  const el = document.getElementById(id);
+  var el = document.getElementById(id);
   return el ? el.value.trim() : '';
 }
 
-function submitApplication() {
-  const workAuth = getRadio('work_auth');
-  const cdl = getRadio('cdl');
-  const felony = getRadio('felony');
-  const exp = getVal('a-exp');
-  const disqualified =
-    workAuth === 'No' ||
-    cdl === 'No' ||
-    (felony === 'Yes') ||
-    (exp !== '' && parseInt(exp) < 2);
+// Submit
+document.getElementById('apply-btn').addEventListener('click', function() {
+  var workAuth = getRadio('work_auth');
+  var cdl = getRadio('cdl');
+  var felony = getRadio('felony');
+  var exp = parseInt(getVal('a-exp'), 10);
+
+  var disqualified = workAuth === 'No' || cdl === 'No' || felony === 'Yes' || (!isNaN(exp) && exp < 2);
 
   if (disqualified) {
-    alert("Thank you for your interest in Olsen Logistics. Unfortunately, based on your responses, you do not meet our current minimum requirements. We appreciate you taking the time to apply.");
+    alert('Thank you for your interest in Olsen Logistics. Unfortunately, based on your responses, you do not meet our current minimum requirements. We appreciate you taking the time to apply.');
     return;
   }
 
-  const body = `DRIVER APPLICATION — OLSEN LOGISTICS
+  var accidents = getRadio('accidents');
+  var violations = getRadio('violations');
+  var reefer = getRadio('reefer');
 
-PERSONAL INFORMATION
-Name: ${getVal('a-fname')} ${getVal('a-lname')}
-Address: ${getVal('a-address')}, ${getVal('a-city')}, ${getVal('a-state')} ${getVal('a-zip')}
-Email: ${getVal('a-email')}
-Phone: ${getVal('a-phone')}
+  var body =
+    'DRIVER APPLICATION — OLSEN LOGISTICS\n\n' +
+    'PERSONAL INFORMATION\n' +
+    'Name: ' + getVal('a-fname') + ' ' + getVal('a-lname') + '\n' +
+    'Address: ' + getVal('a-address') + ', ' + getVal('a-city') + ', ' + getVal('a-state') + ' ' + getVal('a-zip') + '\n' +
+    'Email: ' + getVal('a-email') + '\n' +
+    'Phone: ' + getVal('a-phone') + '\n\n' +
+    'ELIGIBILITY\n' +
+    'Authorized to work in US: ' + workAuth + '\n' +
+    'Class A CDL: ' + cdl + '\n' +
+    'Felony conviction: ' + felony + (felony === 'Yes' ? '\nFelony details: ' + getVal('a-felony') : '') + '\n\n' +
+    'DRIVING HISTORY\n' +
+    'Years of experience: ' + getVal('a-exp') + '\n' +
+    'Accidents in past 3 years: ' + accidents + (accidents === 'Yes' ? '\nAccident details: ' + getVal('a-accidents') : '') + '\n' +
+    'Moving violations in past 3 years: ' + violations + (violations === 'Yes' ? '\nViolation details: ' + getVal('a-violations') : '') + '\n\n' +
+    'QUALIFICATIONS\n' +
+    'TWIC card: ' + getRadio('twic') + '\n' +
+    'Tanker endorsement: ' + getRadio('tanker') + '\n' +
+    'Reefer experience: ' + reefer + (reefer === 'Yes' ? '\nYears of reefer experience: ' + getVal('a-reefer-yrs') : '') + '\n\n' +
+    'ADDITIONAL NOTES\n' + getVal('a-notes');
 
-ELIGIBILITY
-Authorized to work in US: ${workAuth}
-Class A CDL: ${cdl}
-Felony conviction: ${felony}${felony === 'Yes' ? '\nFelony details: ' + getVal('a-felony') : ''}
-
-DRIVING HISTORY
-Years of experience: ${exp}
-Accidents in past 3 years: ${getRadio('accidents')}${getRadio('accidents') === 'Yes' ? '\nAccident details: ' + getVal('a-accidents') : ''}
-Moving violations in past 3 years: ${getRadio('violations')}${getRadio('violations') === 'Yes' ? '\nViolation details: ' + getVal('a-violations') : ''}
-
-QUALIFICATIONS
-TWIC card: ${getRadio('twic')}
-Tanker endorsement: ${getRadio('tanker')}
-Reefer experience: ${getRadio('reefer')}${getRadio('reefer') === 'Yes' ? '\nYears of reefer experience: ' + getVal('a-reefer-yrs') : ''}
-
-ADDITIONAL NOTES
-${getVal('a-notes')}`;
-
-  window.location.href = `mailto:eric@olsenlogistics.com?subject=Driver Application — ${getVal('a-fname')} ${getVal('a-lname')}&body=${encodeURIComponent(body)}`;
-}
+  window.location.href = 'mailto:eric@olsenlogistics.com?subject=' +
+    encodeURIComponent('Driver Application — ' + getVal('a-fname') + ' ' + getVal('a-lname')) +
+    '&body=' + encodeURIComponent(body);
+});
 </script>
 
 </body>
