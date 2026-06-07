@@ -12,6 +12,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    .fs-success { display:none; background:#EAF3DE; border:0.5px solid #97C459; border-radius:12px; padding:2rem; text-align:center; margin-top:1rem; }
+    .fs-success h3 { font-size:18px; font-weight:600; color:#27500A; margin-bottom:0.5rem; }
+    .fs-success p { font-size:14px; color:#3a5c2e; }
+    .fs-error-msg { font-size:13px; color:#c0392b; margin-top:8px; display:none; }
+  </style>
 </head>
 <body>
 
@@ -36,7 +42,12 @@
     <p>Fill out the form below and we'll get back to you as quickly as possible.</p>
   </div>
 
-  <form id="quote-form" onsubmit="submitQuote(event)">
+  <div id="quote-success" class="fs-success">
+    <h3>Quote request received!</h3>
+    <p>Thank you for reaching out. We'll review your load details and get back to you as quickly as possible.</p>
+  </div>
+
+  <div id="quote-form-wrap">
 
     <div class="form-section">
       <h3>Your information</h3>
@@ -73,8 +84,8 @@
         <div class="field">
           <label>Appointment type</label>
           <div class="radio-group">
-            <label><input type="radio" name="pickup_appt" value="Strict appointment" onchange="updateLabel('pickup')"> Strict appointment</label>
-            <label><input type="radio" name="pickup_appt" value="Window" onchange="updateLabel('pickup')"> Window</label>
+            <label><input type="radio" name="pickup_appt" value="Strict appointment"> Strict appointment</label>
+            <label><input type="radio" name="pickup_appt" value="Window"> Window</label>
           </div>
         </div>
         <div class="field hidden" id="pickup-detail-field">
@@ -93,8 +104,8 @@
         <div class="field">
           <label>Appointment type</label>
           <div class="radio-group">
-            <label><input type="radio" name="delivery_appt" value="Strict appointment" onchange="updateLabel('delivery')"> Strict appointment</label>
-            <label><input type="radio" name="delivery_appt" value="Window" onchange="updateLabel('delivery')"> Window</label>
+            <label><input type="radio" name="delivery_appt" value="Strict appointment"> Strict appointment</label>
+            <label><input type="radio" name="delivery_appt" value="Window"> Window</label>
           </div>
         </div>
         <div class="field hidden" id="delivery-detail-field">
@@ -114,8 +125,10 @@
       </div>
     </div>
 
-    <button type="submit" class="submit-btn">Submit quote request</button>
-  </form>
+    <div id="quote-error" class="fs-error-msg">Something went wrong. Please try again or email us directly at eric@olsenlogistics.com.</div>
+    <button class="submit-btn" id="quote-submit-btn">Submit quote request</button>
+
+  </div>
 
 </div>
 
@@ -131,63 +144,81 @@ function toggleNav() {
   document.getElementById('nav-links').classList.toggle('open');
 }
 
-const labels = {
-  pickup: { 'Strict appointment': 'Appointment time (e.g. 08:00 AM)', 'Window': 'Pickup window (e.g. 8:00 AM – 12:00 PM)' },
-  delivery: { 'Strict appointment': 'Appointment time (e.g. 14:00 PM)', 'Window': 'Delivery window (e.g. 10:00 AM – 2:00 PM)' }
+var apptLabels = {
+  pickup: { 'Strict appointment': 'Appointment time (e.g. 8:00 AM)', 'Window': 'Pickup window (e.g. 8:00 AM – 12:00 PM)' },
+  delivery: { 'Strict appointment': 'Appointment time (e.g. 2:00 PM)', 'Window': 'Delivery window (e.g. 10:00 AM – 2:00 PM)' }
 };
-const placeholders = {
-  'Strict appointment': 'e.g. 08:00 AM',
+var apptPlaceholders = {
+  'Strict appointment': 'e.g. 8:00 AM',
   'Window': 'e.g. 8:00 AM – 12:00 PM'
 };
 
-function updateLabel(type) {
-  const selected = document.querySelector(`input[name="${type}_appt"]:checked`);
-  if (!selected) return;
-  const field = document.getElementById(`${type}-detail-field`);
-  const label = document.getElementById(`${type}-detail-label`);
-  const input = document.getElementById(`${type}-detail-input`);
-  field.classList.remove('hidden');
-  label.textContent = labels[type][selected.value];
-  input.placeholder = placeholders[selected.value];
-}
+document.querySelectorAll('input[name="pickup_appt"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    document.getElementById('pickup-detail-field').classList.remove('hidden');
+    document.getElementById('pickup-detail-label').textContent = apptLabels.pickup[r.value];
+    document.getElementById('pickup-detail-input').placeholder = apptPlaceholders[r.value];
+  });
+});
+document.querySelectorAll('input[name="delivery_appt"]').forEach(function(r) {
+  r.addEventListener('change', function() {
+    document.getElementById('delivery-detail-field').classList.remove('hidden');
+    document.getElementById('delivery-detail-label').textContent = apptLabels.delivery[r.value];
+    document.getElementById('delivery-detail-input').placeholder = apptPlaceholders[r.value];
+  });
+});
 
-function submitQuote(e) {
-  e.preventDefault();
-  const f = e.target;
-  const get = id => (f.querySelector(`[name="${id}"]`) || {}).value || '';
-  const pickupAppt = f.querySelector('input[name="pickup_appt"]:checked');
-  const deliveryAppt = f.querySelector('input[name="delivery_appt"]:checked');
+document.getElementById('quote-submit-btn').addEventListener('click', function() {
+  var btn = this;
+  var data = {
+    company: document.getElementById('company').value,
+    contact: document.getElementById('contact').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('email').value,
+    commodity: document.getElementById('commodity').value,
+    weight: document.getElementById('weight').value,
+    temperature: document.getElementById('temp').value,
+    pickup_city: document.getElementById('pickup-city').value,
+    pickup_date: document.getElementById('pickup-date').value,
+    pickup_appointment: (document.querySelector('input[name="pickup_appt"]:checked') || {}).value || '',
+    pickup_detail: document.getElementById('pickup-detail-input').value,
+    delivery_city: document.getElementById('delivery-city').value,
+    delivery_date: document.getElementById('delivery-date').value,
+    delivery_appointment: (document.querySelector('input[name="delivery_appt"]:checked') || {}).value || '',
+    delivery_detail: document.getElementById('delivery-detail-input').value,
+    notes: document.getElementById('notes').value
+  };
 
-  const body = `QUOTE REQUEST — OLSEN LOGISTICS
+  if (!data.company || !data.contact || !data.phone || !data.email || !data.commodity || !data.pickup_city || !data.delivery_city) {
+    alert('Please fill out all required fields.');
+    return;
+  }
 
-CONTACT
-Company: ${get('company')}
-Name: ${get('contact')}
-Phone: ${get('phone')}
-Email: ${get('email')}
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
 
-LOAD
-Commodity: ${get('commodity')}
-Weight: ${get('weight')} lbs
-Temperature: ${get('temp')}
-
-PICKUP
-Location: ${get('pickup_city')}
-Date: ${get('pickup_date')}
-Appointment type: ${pickupAppt ? pickupAppt.value : 'Not specified'}
-Details: ${get('pickup_detail')}
-
-DELIVERY
-Location: ${get('delivery_city')}
-Date: ${get('delivery_date')}
-Appointment type: ${deliveryAppt ? deliveryAppt.value : 'Not specified'}
-Details: ${get('delivery_detail')}
-
-NOTES
-${get('notes')}`;
-
-  window.location.href = `mailto:eric@olsenlogistics.com?subject=Quote Request — ${get('commodity')} | ${get('pickup_city')} to ${get('delivery_city')}&body=${encodeURIComponent(body)}`;
-}
+  fetch('https://formspree.io/f/xeewayby', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(function(res) { return res.json().then(function(json) { return { ok: res.ok, json: json }; }); })
+  .then(function(result) {
+    if (result.ok) {
+      document.getElementById('quote-form-wrap').style.display = 'none';
+      document.getElementById('quote-success').style.display = 'block';
+    } else {
+      document.getElementById('quote-error').style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Submit quote request';
+    }
+  })
+  .catch(function() {
+    document.getElementById('quote-error').style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Submit quote request';
+  });
+});
 </script>
 
 </body>
